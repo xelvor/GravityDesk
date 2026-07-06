@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-electron/
+out/
+bin/
+obj/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / Local config
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# SQLite / Local Database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Dev secrets / tokens
+.env
+.env.local
+.env.*.local
+credentials.json
+accounts.json
+
+# Temporary dev test files (keep root clean)
+test-*.js
+test_*.js
+test_*.ps1
+creds.txt
+temp_*.txt
+promt.txt
+
+# C# compilation symbols and debug data
+*.pdb
+
+# Local scratch directory
+scratch/

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GravityDesk - Professional Preview</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons (Sleek, professional icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        // Vercel / Linear inspired sleek dark theme
+                        gray: {
+                            950: '#0a0a0a',
+                            900: '#111111',
+                            800: '#1a1a1a',
+                            700: '#2a2a2a',
+                            600: '#444444',
+                            500: '#666666',
+                            400: '#888888',
+                            300: '#a3a3a3',
+                            200: '#d4d4d4',
+                            100: '#f5f5f5',
+                        },
+                        accent: {
+                            500: '#3b82f6', // Professional blue
+                            600: '#2563eb',
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(59, 130, 246, 0.1)',
+                        'input': '0 2px 10px rgba(0, 0, 0, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #d4d4d4;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444444;
+        }
+
+        .markdown-body pre {
+            background-color: #111111 !important;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+        }
+        
+        .code-header {
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #2a2a2a;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+    </style>
+</head>
+<body class="flex antialiased text-sm">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col h-full shrink-0">
+        <!-- Header / Workspace -->
+        <div class="h-14 px-4 flex items-center justify-between border-b border-gray-800">
+            <div class="flex items-center gap-2 text-gray-200 font-medium cursor-pointer hover:text-white transition-colors">
+                <div class="w-6 h-6 rounded bg-gradient-to-br from-gray-700 to-gray-800 border border-gray-600 flex items-center justify-center text-xs">
+                    <i class="ph ph-command"></i>
+                </div>
+                <span>GravityDesk</span>
+                <i class="ph ph-caret-up-down text-gray-500 ml-1"></i>
+            </div>
+        </div>
+
+        <!-- Search / New -->
+        <div class="p-3">
+            <button class="w-full bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded-md py-1.5 px-3 flex items-center gap-2 transition-colors shadow-sm">
+                <i class="ph ph-plus font-bold"></i>
+                <span class="text-sm font-medium">New Session</span>
+            </button>
+        </div>
+
+        <!-- Sessions List -->
+        <div class="flex-1 overflow-y-auto px-2 py-2 flex flex-col gap-0.5">
+            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider px-2 mb-2 mt-2">Recent</div>
+            
+            <!-- Active Session -->
+            <button class="w-full text-left px-2 py-1.5 rounded-md bg-gray-800 text-gray-200 flex items-center justify-between group">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <i class="ph ph-chat-teardrop text-accent-500"></i>
+                    <span class="truncate text-sm font-medium">Refactor Authentication</span>
+                </div>
+                <div class="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity text-gray-400">
+                    <i class="ph ph-dots-three hover:text-white"></i>
+                </div>
+            </button>
+
+            <!-- Inactive Session -->
+            <button class="w-full text-left px-2 py-1.5 rounded-md text-gray-400 hover:bg-gray-800/50 hover:text-gray-300 flex items-center justify-between group transition-colors">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <i class="ph ph-chat-teardrop text-gray-500"></i>
+                    <span class="truncate text-sm">Dashboard UI Design</span>
+                </div>
+            </button>
+
+            <button class="w-full text-left px-2 py-1.5 rounded-md text-gray-400 hover:bg-gray-800/50 hover:text-gray-300 flex items-center justify-between group transition-colors">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <i class="ph ph-terminal-window text-gray-500"></i>
+                    <span class="truncate text-sm">npm run build errors</span>
+                </div>
+            </button>
+        </div>
+        
+        <!-- User Profile / Settings footer -->
+        <div class="p-3 border-t border-gray-800">
+            <button class="w-full text-left px-2 py-1.5 rounded-md text-gray-400 hover:bg-gray-800 hover:text-gray-300 flex items-center gap-2 transition-colors">
+                <i class="ph ph-gear"></i>
+                <span class="text-sm">Settings</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-full bg-gray-950 relative">
+        <!-- Topbar -->
+        <header class="h-14 px-5 flex items-center justify-between border-b border-gray-900 bg-gray-950/80 backdrop-blur-md sticky top-0 z-10">
+            <div class="flex items-center gap-3">
+                <div class="px-2 py-1 bg-gray-900 border border-gray-800 rounded-md text-xs font-mono text-gray-400 flex items-center gap-1.5 cursor-pointer hover:bg-gray-800 transition-colors">
+                    <i class="ph ph-folder-open text-gray-500"></i>
+                    ~/Desktop/xelvor-ai
+                </div>
+                <div class="h-4 w-px bg-gray-800"></div>
+                <h1 class="text-gray-200 font-medium">Refactor Authentication</h1>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="p-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-md transition-colors" title="Toggle Terminal">
+                    <i class="ph ph-terminal-window text-lg"></i>
+                </button>
+                <div class="flex items-center gap-1.5 ml-2 px-2.5 py-1 bg-green-500/10 border border-green-500/20 text-green-400 text-xs rounded-full">
+                    <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                    CLI Active
+                </div>
+            </div>
+        </header>
+
+        <!-- Chat History -->
+        <div class="flex-1 overflow-y-auto px-4 md:px-10 lg:px-20 py-8 flex flex-col gap-8 pb-32">
+            
+            <!-- User Message -->
+            <div class="group flex gap-4 w-full">
+                <!-- Avatar -->
+                <div class="w-7 h-7 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center shrink-0 mt-1">
+                    <i class="ph ph-user text-gray-400"></i>
+                </div>
+                <!-- Content -->
+                <div class="flex-1 space-y-1">
+                    <div class="text-xs font-medium text-gray-400 flex items-center gap-2">
+                        You
+                        <span class="text-gray-600 font-normal">10:42 AM</span>
+                    </div>
+                    <div class="text-gray-200 leading-relaxed text-[15px]">
+                        We need to implement a JWT based authentication flow in our Express app. Can you write the login controller and the middleware to verify the token? Make sure it handles errors properly.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assistant Message -->
+            <div class="group flex gap-4 w-full">
+                <!-- Avatar -->
+                <div class="w-7 h-7 rounded bg-accent-500/10 border border-accent-500/20 flex items-center justify-center shrink-0 mt-1">
+                    <i class="ph ph-magic-wand text-accent-500"></i>
+                </div>
+                <!-- Content -->
+                <div class="flex-1 space-y-3 max-w-3xl">
+                    <div class="text-xs font-medium text-gray-400 flex items-center gap-2">
+                        Antigravity
+                        <span class="text-gray-600 font-normal">10:43 AM</span>
+                    </div>
+                    
+                    <div class="text-gray-300 leading-relaxed text-[15px] space-y-4">
+                        <p>I've created the authentication flow you requested. It includes a secure JWT generation process and robust error handling for unauthorized requests.</p>
+                        
+                        <p>Here is the verification middleware you'll need to protect your routes:</p>
+                        
+                        <!-- Code Block (Professional style) -->
+                        <div class="rounded-lg overflow-hidden border border-gray-800 bg-[#0d0d0d] my-4 shadow-sm">
+                            <div class="code-header flex items-center justify-between px-4 py-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex gap-1.5">
+                                        <div class="w-2.5 h-2.5 rounded-full bg-gray-700"></div>
+                                        <div class="w-2.5 h-2.5 rounded-full bg-gray-700"></div>
+                                        <div class="w-2.5 h-2.5 rounded-full bg-gray-700"></div>
+                                    </div>
+                                    <span class="text-xs font-mono text-gray-400">middleware/auth.ts</span>
+                                </div>
+                                <button class="text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1 text-xs">
+                                    <i class="ph ph-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="p-4 overflow-x-auto">
+<pre class="font-mono text-sm leading-relaxed"><span class="text-purple-400">import</span> { Request, Response, NextFunction } <span class="text-purple-400">from</span> <span class="text-green-300">'express'</span>;
+<span class="text-purple-400">import</span> jwt <span class="text-purple-400">from</span> <span class="text-green-300">'jsonwebtoken'</span>;
+
+<span class="text-purple-400">export const</span> verifyToken = (req: <span class="text-yellow-200">Request</span>, res: <span class="text-yellow-200">Response</span>, next: <span class="text-yellow-200">NextFunction</span>) => {
+    <span class="text-purple-400">const</span> token = req.headers.authorization?.<span class="text-blue-400">split</span>(<span class="text-green-300">' '</span>)[<span class="text-orange-400">1</span>];
+    
+    <span class="text-purple-400">if</span> (!token) {
+        <span class="text-purple-400">return</span> res.<span class="text-blue-400">status</span>(<span class="text-orange-400">401</span>).<span class="text-blue-400">json</span>({ error: <span class="text-green-300">'Access denied'</span> });
+    }
+
+    <span class="text-purple-400">try</span> {
+        <span class="text-purple-400">const</span> decoded = jwt.<span class="text-blue-400">verify</span>(token, process.env.JWT_SECRET!);
+        req.user = decoded;
+        <span class="text-blue-400">next</span>();
+    } <span class="text-purple-400">catch</span> (error) {
+        res.<span class="text-blue-400">status</span>(<span class="text-orange-400">403</span>).<span class="text-blue-400">json</span>({ error: <span class="text-green-300">'Invalid token'</span> });
+    }
+};</pre>
+                            </div>
+                        </div>
+                        
+                        <p>You can now apply this middleware to any route like this: <code>router.get('/profile', verifyToken, getProfile)</code>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Status Indicator (The feature we just built!) -->
+            <div class="flex gap-4 w-full animate-pulse">
+                <div class="w-7 h-7 rounded bg-gray-900 border border-gray-800 flex items-center justify-center shrink-0 mt-1">
+                    <i class="ph ph-circle-notch animate-spin text-gray-500"></i>
+                </div>
+                <div class="flex-1 space-y-1 py-1">
+                    <div class="text-xs font-mono text-gray-500 flex items-center gap-2">
+                        <span class="text-accent-500">▶</span>
+                        Analyzing codebase...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Input Area (Sleek, centered, floating-like) -->
+        <div class="absolute bottom-0 w-full px-4 md:px-10 lg:px-20 pb-6 bg-gradient-to-t from-gray-950 via-gray-950 to-transparent pt-10">
+            <div class="max-w-4xl w-full mx-auto relative group">
+                <!-- Input Box -->
+                <div class="bg-gray-900 border border-gray-700 focus-within:border-gray-500 focus-within:ring-1 focus-within:ring-gray-500 rounded-xl shadow-input transition-all duration-200">
+                    <div class="flex px-3 py-3">
+                        <textarea 
+                            class="w-full bg-transparent border-none outline-none resize-none text-[15px] text-gray-200 placeholder-gray-500 max-h-40 min-h-[44px]"
+                            placeholder="Ask Antigravity to build or explain something..."
+                            rows="1"
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Action Bar -->
+                    <div class="flex items-center justify-between px-3 pb-2 pt-1">
+                        <div class="flex items-center gap-1">
+                            <button class="p-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-md transition-colors text-xs flex items-center gap-1.5 font-medium">
+                                <i class="ph ph-plus"></i> Attach
+                            </button>
+                            <button class="p-1.5 text-gray-400 hover:text-gray-200 hover:bg-gray-800 rounded-md transition-colors text-xs flex items-center gap-1.5 font-medium ml-2">
+                                <i class="ph ph-terminal"></i> /slash commands
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-gray-500">
+                            <span>Use <kbd class="px-1.5 py-0.5 bg-gray-800 border border-gray-700 rounded text-gray-400 font-mono text-[10px]">Enter</kbd> to send</span>
+                            <button class="w-8 h-8 flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg transition-colors border border-gray-700">
+                                <i class="ph ph-paper-plane-right font-bold text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
