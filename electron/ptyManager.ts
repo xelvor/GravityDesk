@@ -2,6 +2,7 @@ import { execSync } from 'child_process';
 import { WebContents } from 'electron';
 import { db } from './db';
 import { accountsManager } from './accounts';
+// @ts-ignore
 import * as pty from 'node-pty';
 
 interface GlobalProcess {
