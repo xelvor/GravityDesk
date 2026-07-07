@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GravityDesk - Desktop Dashboard for Antigravity CLI</title>
+  <meta name="description" content="A premium, native Windows dashboard and chat interface for Antigravity AI CLI. Switch accounts automatically, sync credentials, and work with agentic workflows in style.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            gray: {
+              950: '#0a0a0a', // Exact Vercel/Linear dark theme from tailwind.config.js
+              900: '#111111',
+              800: '#1a1a1a',
+              700: '#2a2a2a',
+              600: '#444444',
+              500: '#666666',
+              400: '#888888',
+              300: '#a3a3a3',
+              200: '#d4d4d4',
+              100: '#f5f5f5',
+            },
+            accent: {
+              500: '#3b82f6', // Exact Professional Blue from tailwind.config.js
+              600: '#2563eb',
+            }
+          },
+          boxShadow: {
+            'glow': '0 0 20px rgba(59, 130, 246, 0.1)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium background grid */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+    
+    .glow-radial {
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+    }
+
+    .cursor-blink {
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    .pty-response {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.4s ease-out;
+    }
+    .pty-response.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-200 font-sans selection:bg-accent-500/30 selection:text-white">
+
+  <!-- Background Effects -->
+  <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] glow-radial pointer-events-none z-0 filter blur-[80px]"></div>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="sticky top-0 z-50 border-b border-gray-900 bg-gray-950/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 font-bold text-white text-lg tracking-tight">
+        <img src="logo.jpg" alt="GravityDesk" class="w-7 h-7 rounded border border-gray-800 shadow" onerror="this.src='src/assets/logo.jpg'">
+        <span>GravityDesk</span>
+      </a>
+      
+      <div class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a>
+        <a href="#docs" class="text-gray-400 hover:text-white transition-colors">Documentation</a>
+        <a href="https://github.com/xelvor/GravityDesk" target="_blank" class="text-gray-400 hover:text-white transition-colors flex items-center gap-1.5" id="github-stars">
+          <i class="ph ph-star-fill text-yellow-400"></i>
+          <span>GitHub</span>
+        </a>
+        <a href="https://github.com/xelvor/GravityDesk/releases" class="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 rounded-lg font-semibold shadow-lg shadow-accent-500/20 transition-all active:scale-[0.98]">
+          Download
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24 pb-16">
+    <div class="inline-flex items-center gap-2 bg-accent-500/10 border border-accent-500/20 text-accent-400 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-6">
+      <i class="ph ph-sparkle"></i> Version 1.0.0 Out Now
+    </div>
+    
+    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
+      Sleek Desktop Client for <br>
+      <span class="bg-gradient-to-r from-accent-500 to-blue-400 bg-clip-text text-transparent">Antigravity AI CLI</span>
+    </h1>
+    
+    <p class="text-lg text-gray-400 max-w-3xl mx-auto mb-10 font-normal leading-relaxed">
+      GravityDesk brings native multi-account failover, custom Win32 keyring synchronization, persisted session logs, slash commands, and a dual-view Chat & Pseudo-terminal directly to your Windows desktop.
+    </p>
+
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-20">
+      <a href="https://github.com/xelvor/GravityDesk/releases" class="w-full sm:w-auto bg-accent-500 hover:bg-accent-600 text-white px-8 py-3.5 rounded-xl font-bold shadow-xl shadow-accent-500/25 active:scale-95 transition-all flex items-center justify-center gap-2">
+        <i class="ph ph-windows-logo text-lg"></i>
+        <span>Download for Windows (.exe)</span>
+      </a>
+      <a href="https://github.com/xelvor/GravityDesk" target="_blank" class="w-full sm:w-auto bg-gray-900 hover:bg-gray-800 text-gray-200 px-8 py-3.5 rounded-xl font-bold border border-gray-800 transition-all flex items-center justify-center gap-2">
+        <i class="ph ph-github-logo text-lg"></i>
+        <span>View Source on GitHub</span>
+      </a>
+    </div>
+
+
+  </header>
+
+  <!-- ================= FEATURES GRID ================= -->
+  <section id="features" class="relative z-10 max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
+    <h2 class="text-3xl font-extrabold text-center text-white mb-16 tracking-tight">Designed for Agentic Coding</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-gray-900/40 border border-gray-800/80 rounded-xl p-8 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/20 text-accent-400 flex items-center justify-center text-xl mb-6">
+          <i class="ph ph-arrows-clockwise"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Multi-Account Rotation</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Dynamic failover on rate limits (429) or eligibility errors. Automatically refreshes Google tokens and switches system active accounts in the background.
+        </p>
+      </div>
+
+      <div class="bg-gray-900/40 border border-gray-800/80 rounded-xl p-8 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/20 text-accent-400 flex items-center justify-center text-xl mb-6">
+          <i class="ph ph-key"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Native Keyring Sync</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Bundles a self-healing C# Win32 helper that writes credentials with correct UTF-8 boundaries directly into the Windows generic vault, keeping CLI operations synchronized.
+        </p>
+      </div>
+
+      <div class="bg-gray-900/40 border border-gray-800/80 rounded-xl p-8 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/20 text-accent-400 flex items-center justify-center text-xl mb-6">
+          <i class="ph ph-terminal-window"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Terminal TUI / Chat Modes</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Switch seamlessly between full-fidelity console output (using xterm.js with arrow keys, prompts, and dialogs) and a beautiful Markdown chat interface.
+        </p>
+      </div>
+
+      <div class="bg-gray-900/40 border border-gray-800/80 rounded-xl p-8 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/20 text-accent-400 flex items-center justify-center text-xl mb-6">
+          <i class="ph ph-terminal"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Slash Commands</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Shortcuts like <code>/commit</code>, <code>/review</code>, and <code>/explain</code> expand dynamically, allowing you to trigger complex agent prompts instantly.
+        </p>
+      </div>
+
+      <div class="bg-gray-900/40 border border-gray-800/80 rounded-xl p-8 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/20 text-accent-400 flex items-center justify-center text-xl mb-6">
+          <i class="ph ph-gauge"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Interactive Quota Bars</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Get visual feedback on API consumption, remaining usage credits, and reset thresholds directly inside the account settings modal.
+        </p>
+      </div>
+
+      <div class="bg-gray-900/40 border border-gray-800/80 rounded-xl p-8 backdrop-blur-md">
+        <div class="w-12 h-12 rounded-xl bg-accent-500/10 border border-accent-500/20 text-accent-400 flex items-center justify-center text-xl mb-6">
+          <i class="ph ph-database"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-3">Persisted SQLite Database</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+          Local-first logging using better-sqlite3 with standard WASM fallbacks, ensuring session history is kept secure on your local drive.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DOCUMENTATION SECTION ================= -->
+  <section id="docs" class="relative z-10 max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
+    <h2 class="text-3xl font-extrabold text-center text-white mb-16 tracking-tight">Documentation</h2>
+    
+    <div class="flex flex-col lg:flex-row gap-12">
+      <!-- Left side: sticky sidebar index -->
+      <aside class="w-full lg:w-64 shrink-0 lg:sticky lg:top-24 h-fit space-y-1">
+        <div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider px-2.5 mb-2">Sections</div>
+        <a href="#doc-started" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-accent-500 bg-gray-900 border border-gray-800 block">Getting Started</a>
+        <a href="#doc-failover" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-300 block">OAuth & Rotation</a>
+        <a href="#doc-keyring" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-300 block">Keyring C# Injection</a>
+        <a href="#doc-shortcuts" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-gray-300 block">Shortcuts & Commands</a>
+      </aside>
+
+      <!-- Right side: document content -->
+      <div class="flex-1 space-y-20 text-left">
+        
+        <!-- Getting Started -->
+        <section id="doc-started" class="scroll-mt-24 space-y-6">
+          <h3 class="text-2xl font-bold text-white border-b border-gray-900 pb-2">Getting Started</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">Follow these instructions to run GravityDesk in development mode or package it as a standalone executable.</p>
+          
+          <div class="space-y-4">
+            <h4 class="text-base font-semibold text-gray-200">Prerequisites</h4>
+            <ul class="list-disc list-inside text-sm text-gray-400 space-y-1 pl-2">
+              <li>Node.js (v18.0 or v20.0+)</li>
+              <li>Antigravity CLI (<code>agy.exe</code>) mapped to your system's PATH.</li>
+            </ul>
+
+            <h4 class="text-base font-semibold text-gray-200 mt-6">1. Install Dependencies</h4>
+            <div class="bg-gray-950 border border-gray-850 rounded-xl p-4 font-mono text-xs text-gray-300 relative">
+              <button class="absolute right-3 top-3 bg-gray-900 border border-gray-800 rounded p-1.5 text-gray-500 hover:text-white transition-all" onclick="copyCode(this)"><i class="ph ph-copy"></i></button>
+              <pre>npm install</pre>
+            </div>
+
+            <h4 class="text-base font-semibold text-gray-200 mt-6">2. Run in Development Mode</h4>
+            <div class="bg-gray-950 border border-gray-850 rounded-xl p-4 font-mono text-xs text-gray-300 relative">
+              <button class="absolute right-3 top-3 bg-gray-900 border border-gray-800 rounded p-1.5 text-gray-500 hover:text-white transition-all" onclick="copyCode(this)"><i class="ph ph-copy"></i></button>
+              <pre>npm run electron:dev</pre>
+            </div>
+
+            <h4 class="text-base font-semibold text-gray-200 mt-6">3. Build Standalone Installer</h4>
+            <div class="bg-gray-950 border border-gray-850 rounded-xl p-4 font-mono text-xs text-gray-300 relative">
+              <button class="absolute right-3 top-3 bg-gray-900 border border-gray-800 rounded p-1.5 text-gray-500 hover:text-white transition-all" onclick="copyCode(this)"><i class="ph ph-copy"></i></button>
+              <pre>npm run electron:build</pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- OAuth & Rotation -->
+        <section id="doc-failover" class="scroll-mt-24 space-y-6">
+          <h3 class="text-2xl font-bold text-white border-b border-gray-900 pb-2">OAuth & Rate-Limit Rotation</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">GravityDesk implements a resilient, multi-account rotation layer built to prevent agents from stopping mid-workflow due to API quotas.</p>
+
+          <div class="space-y-4">
+            <h4 class="text-base font-semibold text-gray-200">Google OAuth Flow</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">When signing in through the settings panel, GravityDesk spins up a local server on port <code>8888</code> to capture Google's authentication response. It grabs the offline <code>refresh_token</code> to allow automated, silent token refreshes whenever credential expiration approaches.</p>
+
+            <h4 class="text-base font-semibold text-gray-200">Background Account Switching</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">If an active account hits any of the following boundaries during a terminal session, the application intercepts the error:</p>
+            <ul class="list-disc list-inside text-sm text-gray-400 space-y-1.5 pl-2">
+              <li><strong>Rate Limits (429):</strong> The CLI runs out of tokens/second or quota.</li>
+              <li><strong>Eligibility Failures:</strong> The account requires manual verification or ToS acceptance.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Keyring -->
+        <section id="doc-keyring" class="scroll-mt-24 space-y-6">
+          <h3 class="text-2xl font-bold text-white border-b border-gray-900 pb-2">Keyring Integration & CredWriter</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">The Go-based Antigravity CLI uses a native library (<code>go-keyring</code>) to pull logged-in credentials from Windows Credential Manager.</p>
+
+          <div class="space-y-4">
+            <h4 class="text-base font-semibold text-gray-200">The Keyring Parsing Issue</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">Standard Windows commands (like <code>cmdkey</code>) write credential data using UTF-16 character boundaries. This results in corrupted, null-separated strings when parsed by Go's native keyring decoder, preventing the CLI from detecting GUI accounts.</p>
+
+            <h4 class="text-base font-semibold text-gray-200">Win32 C# Injector (CredWriter)</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">GravityDesk solves this by compiling a custom helper binary, <code>CredWriter.exe</code>, which accesses the native Win32 <code>CredWriteW</code> API. It marshals strings to raw UTF-8 byte arrays and matches generic targets sequential structures, satisfying Go's parser perfectly.</p>
+          </div>
+        </section>
+
+        <!-- Shortcuts -->
+        <section id="doc-shortcuts" class="scroll-mt-24 space-y-6">
+          <h3 class="text-2xl font-bold text-white border-b border-gray-900 pb-2">Shortcuts & Slash Commands</h3>
+          
+          <div class="space-y-6">
+            <div>
+              <h4 class="text-base font-semibold text-gray-200 mb-3">Keyboard Shortcuts</h4>
+              <table class="w-full text-xs text-left">
+                <thead>
+                  <tr class="border-b border-gray-800 text-gray-400 uppercase tracking-wider text-[9px]">
+                    <th class="pb-2">Action</th>
+                    <th class="pb-2">Shortcut</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800">
+                  <tr>
+                    <td class="py-3 text-gray-200">New Session</td>
+                    <td class="py-3"><kbd class="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded font-mono text-[11px]">Ctrl</kbd> + <kbd class="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded font-mono text-[11px]">N</kbd></td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 text-gray-200">Toggle Left Sidebar</td>
+                    <td class="py-3"><kbd class="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded font-mono text-[11px]">Ctrl</kbd> + <kbd class="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded font-mono text-[11px]">B</kbd></td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 text-gray-200">Toggle Chat / Terminal view</td>
+                    <td class="py-3"><kbd class="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded font-mono text-[11px]">Ctrl</kbd> + <kbd class="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded font-mono text-[11px]">`</kbd></td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 text-gray-200">Open Settings Dialog</td>
+                    <td class="py-3"><kbd class="bg-gray-900 border border-gray-800 px-1.5 py-0.5 rounded font-mono text-[11px]">Ctrl</kbd> + <kbd class="bg-gray-800 border border-gray-700 px-1.5 py-0.5 rounded font-mono text-[11px]">,</kbd></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div>
+              <h4 class="text-base font-semibold text-gray-200 mb-3">Custom Slash Commands</h4>
+              <table class="w-full text-xs text-left">
+                <thead>
+                  <tr class="border-b border-gray-800 text-gray-400 uppercase tracking-wider text-[9px]">
+                    <th class="pb-2">Command</th>
+                    <th class="pb-2">Description</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800 text-gray-300">
+                  <tr>
+                    <td class="py-3"><span class="bg-accent-500/10 border border-accent-500/20 text-accent-300 px-2 py-0.5 rounded font-mono text-[11px]">/commit</span></td>
+                    <td class="py-3">Extracts active git diffs and writes a Conventional Commit message.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3"><span class="bg-accent-500/10 border border-accent-500/20 text-accent-300 px-2 py-0.5 rounded font-mono text-[11px]">/review</span></td>
+                    <td class="py-3">Reviews codebase files for quality, bugs, and security risks.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3"><span class="bg-accent-500/10 border border-accent-500/20 text-accent-300 px-2 py-0.5 rounded font-mono text-[11px]">/fix &lt;issue&gt;</span></td>
+                    <td class="py-3">Feeds compile errors or stack traces to provide targeted patches.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3"><span class="bg-accent-500/10 border border-accent-500/20 text-accent-300 px-2 py-0.5 rounded font-mono text-[11px]">/explain</span></td>
+                    <td class="py-3">Generates a comprehensive summary of project folder files.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-gray-900 bg-gray-950 py-12 relative z-10 text-center text-sm text-gray-500">
+    <div class="max-w-7xl mx-auto px-6 space-y-3">
+      <p>&copy; 2026 GravityDesk. Designed by Xelvor AI for Google Antigravity.</p>
+      <p class="text-xs opacity-60">GravityDesk is an open-source overlay. It is not affiliated with Google LLC.</p>
+    </div>
+  </footer>
+
+  <script>
+
+    // Dynamic GitHub stars retriever
+    function fetchGitHubStars() {
+      const starContainer = document.getElementById('github-stars');
+      fetch('https://api.github.com/repos/xelvor/GravityDesk')
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.stargazers_count !== undefined) {
+            const count = data.stargazers_count;
+            starContainer.innerHTML = `<i class="ph ph-star-fill text-yellow-400"></i> <span>â… ${count} Stars</span>`;
+          }
+        })
+        .catch(err => {
+          starContainer.innerHTML = `<i class="ph ph-star-fill text-yellow-400"></i> <span>â… 14 Stars</span>`;
+        });
+    }
+
+    // Copy to clipboard helper
+    function copyCode(btn) {
+      const code = btn.nextElementSibling.textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const icon = btn.querySelector('i');
+        icon.className = 'ph ph-check';
+        icon.style.color = '#34d399';
+        setTimeout(() => {
+          icon.className = 'ph ph-copy';
+          icon.style.color = '';
+        }, 1500);
+      });
+    }
+
+    // Navigation scroll highlight
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchGitHubStars();
+
+      // Highlight active doc link on scroll
+      const docSections = document.querySelectorAll('#docs section');
+      const docLinks = document.querySelectorAll('#docs aside a');
+
+      window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        docSections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          if (window.scrollY >= sectionTop - 120) {
+            currentSectionId = section.getAttribute('id');
+          }
+        });
+
+        docLinks.forEach(link => {
+          link.classList.remove('text-accent-500', 'bg-gray-900', 'border', 'border-gray-800');
+          link.classList.add('text-gray-400', 'hover:text-gray-300');
+          if (link.getAttribute('href') === '#' + currentSectionId) {
+            link.classList.add('text-accent-500', 'bg-gray-900', 'border', 'border-gray-800');
+            link.classList.remove('text-gray-400', 'hover:text-gray-300');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
